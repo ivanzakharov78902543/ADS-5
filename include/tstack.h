@@ -4,7 +4,7 @@
 
 template<typename T, int size>
 class TStack {
-	std::stack <T> stack;
+    std::stack <T> stack;
 };
 
 #endif  // INCLUDE_TSTACK_H_

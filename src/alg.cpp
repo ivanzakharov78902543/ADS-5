@@ -22,7 +22,7 @@ int prec(char c) {
     return INT_MAX;
 }
 bool isOperand(char c) {
-    return (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || (c >= '0' && c <= '9');
+    return (c >= '0' && c <= '9');
 }
 std::string infx2pstfx(std::string inf) {
     char probel = ' ';
@@ -32,7 +32,6 @@ std::string infx2pstfx(std::string inf) {
         if (c == '(') {
             s.push(c);
         } else if (c == ')') {
-
             while (s.top() != '(') {
                 postfix.push_back(s.top());
                 postfix.push_back(probel);
@@ -43,7 +42,6 @@ std::string infx2pstfx(std::string inf) {
             postfix.push_back(c);
             postfix.push_back(probel);
         } else {
-
             while (!s.empty() && prec(c) >= prec(s.top())) {
                 postfix.push_back(s.top());
                 s.pop();
@@ -69,14 +67,11 @@ int eval(std::string pref) {
             stack.pop();
             if (c == '+') {
                 stack.push(y + x);
-            }
-            else if (c == '-') {
+            } else if (c == '-') {
                 stack.push(y - x);
-            }
-            else if (c == '*') {
+            } else if (c == '*') {
                 stack.push(y * x);
-            }
-            else if (c == '/') {
+            } else if (c == '/') {
                 stack.push(y / x);
             }
         }

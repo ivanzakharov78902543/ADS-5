@@ -1,7 +1,7 @@
 // Copyright 2021 NNTU-CS
 #include <iostream>
 #include <string>
-#include "Header.h"
+#include "tsack.h"
 int prec(char c) {
     if (c == '*' || c == '/') {
         return 3;

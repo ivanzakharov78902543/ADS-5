@@ -1,8 +1,7 @@
 // Copyright 2021 NNTU-CS
 #include <iostream>
-#include <stack>
 #include <string>
-#include <climits>
+#include "Header.h"
 int prec(char c) {
     if (c == '*' || c == '/') {
         return 3;

@@ -3,9 +3,7 @@
 #include <stack>
 #include <string>
 #include <climits>
-using namespace std;
-int prec(char c)
-{
+int prec(char c) {
     if (c == '*' || c == '/') {
         return 3;
     }
@@ -26,59 +24,45 @@ int prec(char c)
 bool isOperand(char c) {
     return (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || (c >= '0' && c <= '9');
 }
-string infx2pstfx(string inf)
-{
+std::string infx2pstfx(std::string inf) {
     char probel = ' ';
-    stack<char> s;
-    string postfix;
-    for (char c : inf)
-    {
+    std::stack<char> s;
+    std::string postfix;
+    for (char c : inf) {
         if (c == '(') {
             s.push(c);
-        }
-        else if (c == ')')
-        {
+        } else if (c == ')') {
 
-            while (s.top() != '(')
-            {
+            while (s.top() != '(') {
                 postfix.push_back(s.top());
                 postfix.push_back(probel);
                 s.pop();
             }
             s.pop();
-        }
-        else if (isOperand(c)) {
+        } else if (isOperand(c)) {
             postfix.push_back(c);
             postfix.push_back(probel);
-        }
-        else {
+        } else {
 
-            while (!s.empty() && prec(c) >= prec(s.top()))
-            {
+            while (!s.empty() && prec(c) >= prec(s.top())) {
                 postfix.push_back(s.top());
                 s.pop();
             }
-
-
             s.push(c);
         }
     }
-    while (!s.empty())
-    {
+    while (!s.empty()) {
         postfix.push_back(s.top() );
         s.pop();
     }
     return postfix;
 }
-int eval(string pref)
-{
-    stack<int> stack;
-    for (char c : pref)
-    {
+int eval(std::string pref) {
+    std::stack<int> stack;
+    for (char c : pref) {
         if (c >= '0' && c <= '9') {
             stack.push(c - '0');
-        }
-        else {
+        } else {
             int x = stack.top();
             stack.pop();
             int y = stack.top();

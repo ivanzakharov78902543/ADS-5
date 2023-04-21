@@ -1,7 +1,7 @@
 // Copyright 2021 NNTU-CS
-#include <iostream>
 #include <string>
-#include "tsack.h"
+#include <climits>
+#include "tstack.h"
 int prec(char c) {
     if (c == '*' || c == '/') {
         return 3;
@@ -21,11 +21,10 @@ int prec(char c) {
     return INT_MAX;
 }
 bool isOperand(char c) {
-    return (c >= '0' && c <= '9');
+    return (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || (c >= '0' && c <= '9');
 }
 std::string infx2pstfx(std::string inf) {
-    char probel = ' ';
-    std::stack<char> s;
+    TStack<char, 100> s;
     std::string postfix;
     for (char c : inf) {
         if (c == '(') {
@@ -33,30 +32,31 @@ std::string infx2pstfx(std::string inf) {
         } else if (c == ')') {
             while (s.top() != '(') {
                 postfix.push_back(s.top());
-                postfix.push_back(probel);
+                postfix.push_back(' ');
                 s.pop();
             }
             s.pop();
         } else if (isOperand(c)) {
             postfix.push_back(c);
-            postfix.push_back(probel);
+            postfix.push_back(' ');
         } else {
-            while (!s.empty() && prec(c) >= prec(s.top())) {
+            while (!s.isEmpty() && prec(c) >= prec(s.top())) {
                 postfix.push_back(s.top());
+                postfix.push_back(' ');
                 s.pop();
             }
             s.push(c);
         }
     }
-    while (!s.empty()) {
-        postfix.push_back(s.top() );
+    while (!s.isEmpty()) {
+        postfix.push_back(s.top());
         s.pop();
     }
     return postfix;
 }
-int eval(std::string pref) {
-    std::stack<int> stack;
-    for (char c : pref) {
+int eval(std::string post) {
+    TStack<int, 100> stack;
+    for (char c : post) {
         if (c >= '0' && c <= '9') {
             stack.push(c - '0');
         } else {

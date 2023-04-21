@@ -50,6 +50,7 @@ std::string infx2pstfx(std::string inf) {
     }
     while (!s.isEmpty()) {
         postfix.push_back(s.top());
+        postfix.push_back(' ');
         s.pop();
     }
     return postfix;

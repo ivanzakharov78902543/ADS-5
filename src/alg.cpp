@@ -53,7 +53,13 @@ std::string infx2pstfx(std::string inf) {
         postfix.push_back(' ');
         s.pop();
     }
-    return postfix;
+    std::string www;
+    if (postfix[postfix.length() - 1] == ' ') {
+        for (int i = 0; i < postfix.length() - 1; i++) {
+            www += postfix[i];
+        }
+    }
+    return www;
 }
 int eval(std::string post) {
     std::string v;

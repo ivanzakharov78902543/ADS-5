@@ -21,7 +21,7 @@ int prec(char c) {
     return INT_MAX;
 }
 bool isOperand(char c) {
-    return (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || (c >= '0' && c <= '9');
+    return (c >= '0' && c <= '9');
 }
 std::string infx2pstfx(std::string inf) {
     TStack<char, 100> s;

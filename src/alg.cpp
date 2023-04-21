@@ -55,6 +55,7 @@ std::string infx2pstfx(std::string inf) {
     return postfix;
 }
 int eval(std::string post) {
+    post.erase(remove(post.begin(), post.end(), ' '), post.end());
     TStack<int, 100> stack;
     for (char c : post) {
         if (c >= '0' && c <= '9') {
